@@ -32,12 +32,39 @@
 # Lineages
 
    * Procedural languages have their roots in Turing Machine (Von Neuman Architecture)
-   
+
+    ~~~~
+    Every program could be be expressed in terms of 3 classes of instructions
+    1. Instructions that move data - MOV, IN, OUT
+    2. Instructions that alter Control Flow - CMP, JMP, JE
+    3. Instructions that do arithmatic/logic - ADD, SUB, AND 
+    ~~~~   
+
    * FP on the other hand has its root in lambda calculus
 
+    ~~~~
+    <expr>   ::=  <var>
+                 | <func> <arg>              # This is an application.
+                 | lambda <var> . <expr>     # This is an abstraction. 
+    <func>   ::=  <var>
+                 | (lambda <var> . <expr>)    
+                 | <func> <arg>
+    <arg>    ::=  <var>
+                 | (lambda <var> . <expr>) 
+                 | (<func> <arg>) 
+    <var>    ::= a| b| .... | Z
+    ~~~~
 
+# Mental model differences
 
+   * In procedural programs one has this notion of a program counter progressing in time
 
+   * In functional programming however, one thinks in terms of expression reduction by substitution
+     * Excel without VBA for example
+
+   * What vs How - Function vs Procedure
+
+   * The "What" approach gives more freedom to the compiler
 
 # Why should I learn functional programming?
 
@@ -74,7 +101,7 @@
 
 # So which is the most powerful language?
 
-   * What could be the parameters to measure the power of a language
+   * Cant answer that without establishing the parameters to measure the power of a language
    * 1990 - Why Functional Programming Matters - John Huges
 
 # Modularity is the key
@@ -85,19 +112,11 @@
      * Modules could be tested independently
      * Conceptual modularity vs Clerical modularity
 
-
-
-
 # Some literature that talks about the importance of FP
 
 * 1977 - Can Programming Be Liberated from the Von Neumann Style? A Functional Style and Its Algebra of Programs - John Backus, IBM
 * 1990 - Why Functional Programming Matters - John Huges
 * 2001 - Beating the Averages - Paul Graham, Yahoo! Y Combinator 
-
-# What is functional programming
-
-* 
-
 
 
 # 
