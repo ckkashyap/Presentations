@@ -1,3 +1,4 @@
+--{-# OPTIONS_GHC -Wall #-} 
 import Control.Monad.State
 
 data Screen = Screen String [HTMLControl] 
@@ -28,18 +29,23 @@ screen2HTML (Screen identifier' cs) = pre ++ body ++ post where
             post = "</html>\n"
 
 action2js :: String -> Action -> HTML
-action2js _ None = ""
-action2js identifier (UpdateText ht str) = "<script>function f_" ++ identifier ++ "(obj){obj.innerHTML=\"" ++ str ++ "\"}"
+action2js _ None = "<!--HELLO-->"
+action2js identifier (UpdateText (HTMLText i l) str) = "<script>function function_" ++ identifier ++ "(obj){document.all['div_1'].innerHTML='aaa';alert('"++ (show i) ++ "')}</script>\n"
 
 
 
 identifiableDiv :: String -> String -> String
 identifiableDiv i str =  "<div id=\"div_" ++ i ++ "\">" ++ str ++ "</div>\n"
 
+generateControlTag :: String -> [(String, String)] -> String
+generateControlTag tag kv = "<" ++ tag ++ " " ++ generateControlTag' kv where
+                   generateControlTag' [] = "/>"
+                   generateControlTag' ((k,v):r)  = " " ++ k ++ "=\"" ++ v ++ "\"" ++ (generateControlTag' r)
+
 control2html :: HTMLControl -> HTML
 control2html (C1 (HTMLText i l)) = identifiableDiv i l
-control2html (C2 (HTMLRadio i a)) = (identifiableDiv i "<input id=\"input_" ++ i ++ " type=\"radio\"/>") ++ (action2js i a)
-control2html (C3 (HTMLButton i l a)) = identifiableDiv i ("<input id=\"button_" ++ i ++ "\" type=\"button\" value=\"" ++ l ++ "\"/>")
+control2html (C2 (HTMLRadio i a)) = (identifiableDiv i (generateControlTag "input" [("id", "input_" ++ i), ("type", "radio")])) ++ (action2js i a)
+control2html (C3 (HTMLButton i l a)) = (identifiableDiv i (generateControlTag "input" [("id", "button_" ++ i), ("type", "button"), ("value",l), ("onclick", "javascript:function_"++i++"(this);")])) ++ (action2js i a)
 
 data TotalState = TotalState {counter :: Int, workFlow :: [Screen]}
      deriving Show
@@ -63,10 +69,10 @@ newHTMLRadioControl  = do
                    ctr <- incrementCounter
                    return (HTMLRadio (show ctr) None)
 
-newHTMLButtonControl :: String -> State TotalState HTMLButton 
-newHTMLButtonControl str = do
+newHTMLButtonControl :: Action -> String -> State TotalState HTMLButton 
+newHTMLButtonControl a str = do
                    ctr <- incrementCounter
-                   return (HTMLButton (show ctr) str None)
+                   return (HTMLButton (show ctr) str a)
 
 newScreen :: State TotalState Screen
 newScreen = do
@@ -86,9 +92,9 @@ add2workflow s = do
 
 someFun :: MyState
 someFun = do
-        t <- newHTMLTextControl "Hello World"
+        t <- newHTMLTextControl "12345"
         t1 <- newHTMLTextControl "Hello World 123"
-        b <- newHTMLButtonControl "Click Me"
+        b <- newHTMLButtonControl (UpdateText t1 "DINGO") "Click Me"
         s <- newScreen
         s <- add2screen s (C1 t)
         s <- add2screen s (C1 t)
@@ -107,4 +113,8 @@ html = screen2HTML (wf !! 0)
 
 
 main = do
+--     x <- readLn :: IO Int
+--     x <- readLn :: IO Int
+--     putStrLn (show x)
+--     return ()
      writeFile "out.html" html
