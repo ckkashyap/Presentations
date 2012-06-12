@@ -151,6 +151,86 @@
         | static  | C    | Haskell |
         |---------+------+---------|
 
+# A quick primer on Haskell syntax - functions
+
+   * Function application
+
+    ~~~~{.haskell}
+    f :: Int -> Int
+    f x = 2 * x
+    
+    g = f 10 -- => g = 2 * 10 => g = 20
+    ~~~~
+
+   * Partial application / closure
+
+    ~~~~{.haskell}
+    f :: Int -> Int -> Int
+    f x y = x + y
+    
+    g = f 10 -- => g is a closure with 10 bound to it
+
+    g 20 -- => 30!!!
+    ~~~~
+
+# A quick primer on Haskell syntax - data
+
+   * List data type
+
+    ~~~~{.haskell}
+    {-
+    data keyword is used to introduce new data types
+    -}
+    
+    data Color = Red | Green | Blue
+    
+    data Person = Person String Int
+
+    data List a = Nil | Cons a (List a)
+    ~~~~
+
+# A quick primer on Haskell syntax - data
+
+   * Functions on the List data type
+
+    ~~~~{.haskell}
+     
+    list2string :: (Show a) => List a -> String
+    list2string Nil           = ""
+    list2string (Cons n rest) = (show n) ++ " " ++ (list2string rest)
+
+    listLength :: List a -> Int
+    listLength Nil         = 0
+    listLength (Cons n ns) = 1 + listLength ns 
+    ~~~~
+
+# A quick primer on Haskell syntax - data
+
+   * See it in action
+
+    ~~~~{.haskell}
+
+    l1 = Nil
+    l2 = Cons 10 l1
+    l3 = Cons 20 l2
+    l4 = Cons 10 (Cons 20 (Cons 30 Nil))
+    
+    GHCI (REPL):
+    *Main> list2string l1
+    ""
+    *Main> list2string l2
+    "10 "
+    *Main> list2string l3
+    "20 10 "
+    *Main> list2string l4
+    "10 20 30 "
+    *Main> listLength l1
+    0
+    *Main> listLength l4
+    3
+    ~~~~
+
+
 # What are higher order functions?
 
    * Functions that take functions as arguments or return functions
@@ -168,6 +248,45 @@
     allTrue	= foldr (&&) True
     anyTrue	= foldr (||) False
 
+    ~~~~
+
+# What is lazy evaluation?
+
+   * Evaluate only if and when needed
+
+   * Newton-Raphson Square Roots => a<sub>i+1</sub> = (a<sub>i</sub> + n/a<sub>i</sub>)/2
+
+    ~~~~{.basic}
+        X = A0
+        Y = A0 + 2. * EPS
+
+    100 IF ABS(X-Y).LE.EPS GOTO 200
+        Y = X
+        X = (X + N/X) / 2.
+        GOTO 100
+    200 PRINT X
+    ~~~~
+
+# Newton-Raphson Square Roots with Lazy Evaluation
+
+   * We can define a function *next* as follows
+
+    ~~~~{.haskell}
+    next n x = (x + n / x) / 2
+    ~~~~
+            
+   * So (*next n*) is the function that maps one approximation to the next
+
+   * Calling this function f, the sequence of approximations would be 
+
+    ~~~~{.haskell}
+    [a0, f a0, f (f a0), f (f (f a0)), ...] 
+    ~~~~
+        
+   * We can define a function that computes this sequence
+
+    ~~~~{.haskell}
+    repeat f a = a : (repeat f (f a))
     ~~~~
 
 
