@@ -10,12 +10,23 @@
 
 * I am merely going to attempt to get you excited about FP in geneal and Haskell in particular!
 
+* Who am I
+    * BASIC
+    * C, x86 ASM, C++
+    * Java
+    * Smalltalk
+    * Perl - got me thinking
+    * Monolithic x86 kernel in C -> Minix -> EDSL
+    * vim -> emacs
+    * 64 bit ISA is very different
+    * Perl -> Ruby -> Haskell
+
 # What is Functional Programming?
 
    * It is a programming paradigm where functions are first class values
 
    * Functions are data!!!
-     * In maths, functions are essentially maps that map values from a domain to a range!     
+     * In mathematics, functions essentially map values from a domain to a range!     
 
    * Functions vs Procedures
 
@@ -28,6 +39,12 @@
     ~~~~
 
     Are f1 and f2 the same function?
+
+# What is Functional Programming (contd)?
+
+   * Return values depend only on the input
+
+   * What about IO?
 
 # Lineages
 
@@ -117,7 +134,41 @@
 * 1977 - Can Programming Be Liberated from the Von Neumann Style? A Functional Style and Its Algebra of Programs - John Backus, IBM
 * 1990 - Why Functional Programming Matters - John Huges
 * 2001 - Beating the Averages - Paul Graham, Yahoo! Y Combinator 
+* 2011 - http://www.infoq.com/presentations/Thinking-Parallel-Programming (49:36 - 49:50) - Guy Steele
+   "If I had known 7 years ago what I know now, I would have started with Haskell"
 
 
-# 
+# So which is the most powerful language?
+
+   * Higher order functions
+   * Lazy Evaluation
+   * Static typing - (Compile time)
+   * Strong typing - (No arbitrary implicit typecasts)
+
+        |         | weak | strong  |
+        |---------+------+---------|
+        | dynamic | perl | Ruby    |
+        | static  | C    | Haskell |
+        |---------+------+---------|
+
+# What are higher order functions?
+
+   * Functions that take functions as arguments or return functions
+   
+    ~~~~{.haskell}
+    
+    sum []	= 0
+    sum (x:xs)	= x + sum xs
+
+    prod []	= 1
+    prod (x:xs)	= x + prod xs
+
+    sum		= foldr (+) 0
+    prod	= foldr (*) 1
+    allTrue	= foldr (&&) True
+    anyTrue	= foldr (||) False
+
+    ~~~~
+
+
 
