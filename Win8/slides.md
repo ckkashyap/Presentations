@@ -59,6 +59,12 @@
       * The Edge
       * Touch first
 
+# Demo
+
+* Edge
+* Charms
+
+
 # Traits of Metro Style Apps
 
 * Fast and Fluid
@@ -69,13 +75,20 @@
 
 # Traits of Metro Style Apps
 
-* Use the right contracts
-* Invest in a great tile
-* Feel connected and alive
 * Roam the cloud
 
 
+# Demo
 
+* Doodle time
+
+# Application life cycle
+
+<img src="LifeCycle.png" width="1000"/>
+
+* Apps are activated by contracts
+* Apps get suspended after 5 seconds of being away from foreground
+* Suspended apps get terminated under memory pressure
 
 # Thank you!
 
