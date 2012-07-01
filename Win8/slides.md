@@ -1,6 +1,6 @@
 # What are Metro Style apps?
 
-* Apps that adhere to the new "*look n feel*"  of Windows 8
+* Apps that adhere to the new style guidelines  of Windows 8
 
 # Why the name Windows 8?
 
@@ -77,10 +77,24 @@
 
 * Roam the cloud
 
+# Hello Metro World
 
-# Demo
+* WWAHost.exe
 
-* Doodle time
+* Registry
+
+# Windows   platform
+
+<img src="windows 8 platform and tools.png" width="1000"/>
+
+# Windows 8 platform
+
+<img src="windows 8 platform and tools 2.png" width="1000"/>
+
+
+# Doodle
+
+# JS to Native
 
 # Application life cycle
 
@@ -90,9 +104,12 @@
 * Apps get suspended after 5 seconds of being away from foreground
 * Suspended apps get terminated under memory pressure
 
+
+# Next steps
+
+* Browse http://www.buildwindows.com
+
 # Thank you!
-
-
 
 
 
