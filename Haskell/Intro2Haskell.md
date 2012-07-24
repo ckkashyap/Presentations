@@ -10,7 +10,7 @@
 
 * I am merely going to attempt to get you excited about FP in geneal and Haskell in particular!
 
-* Who am I
+* Evolution of my position about programming languages
     * BASIC
     * C, x86 ASM, C++
     * Java
